@@ -1,13 +1,22 @@
 #include "clock.h"
 
-Clock::Clock(QWidget* pwgt) : QLabel(pwgt) {
-    QTimer* ptimer = new QTimer(this);
-    connect(ptimer, SIGNAL(timeout()), SLOT(slotUpdateDataTime));
-    ptimer->start(500);
-    slotUpdateDateTime();
+Clock::Clock(QWidget* parent) : QMainWindow(parent) {
+    m_timer = new QTimer(this);
+    m_timer->setInterval(1000);
+    m_label = new QLabel;
+    QFont font("Times", 28, QFont::Bold);
+    m_label->setFont(font);
+    m_label->setText(QTime::currentTime().toString("hh:mm:ss"));
+    connect(m_timer, SIGNAL(timeout()), this, SLOT(slotUpdateDataTime));
+    this->layout()->addWidget(m_label);
+    this->setLayout(this->layout());
+}
+
+Clock::~Clock() {
+    delete m_timer;
+    delete m_display;
 }
 
 void Clock::slotUpdateDateTime() {
-    QString str = QDateTime::currentDateTime().toString();
-    setText("<H2><Center>" + str + "</CENTER></H2>");
+    m_label->setText(QTime::currentTime().toString("hh:mm:ss"));
 }

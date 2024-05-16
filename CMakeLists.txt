@@ -23,7 +23,9 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
     qt_add_executable(clock_1
         MANUAL_FINALIZATION
         ${PROJECT_SOURCES}
-        clock.h clock.cpp
+        mainwindow.h mainwindow.cpp
+        mainwindow.ui
+
     )
 # Define target properties for Android with Qt 6 as:
 #    set_property(TARGET clock_1 APPEND PROPERTY QT_ANDROID_PACKAGE_SOURCE_DIR
